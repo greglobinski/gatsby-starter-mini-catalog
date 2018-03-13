@@ -15,7 +15,7 @@ const theme = createMuiTheme({
       accent: colors.accent
     },
     fonts: {
-      unstyledFamily: `Arial`,
+      unstyledFamily: `Arial, sans-serif`,
       styledFamily: "Open Sans",
       styledFonts: "300,400,600"
     }

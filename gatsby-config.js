@@ -119,12 +119,6 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-sitemap`
-    },
-    {
-      resolve: "gatsby-plugin-svgr",
-      options: {
-        dir: `svg-icons`
-      }
     }
   ]
 };
