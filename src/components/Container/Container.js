@@ -86,7 +86,7 @@ const styles = theme => ({
 
 class Container extends React.Component {
   lastScreen = null;
-  screenTransition = "asNext";
+  screenTransition = "";
 
   componentDidMount() {
     if (this.props.lastScreen) {
@@ -98,8 +98,6 @@ class Container extends React.Component {
         el => el.slug === this.props.location.pathname
       );
       this.screenTransition = lastScreenIndex <= screenIndex ? "asNext" : "asPrev";
-    } else {
-      this.screenTransition = "";
     }
 
     if (this.props.location.pathname !== this.props.lastScreenPath) {
