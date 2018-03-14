@@ -331,7 +331,7 @@ export default {
       lineHeight: "1.15",
       textSizeAdjust: "100%"
     },
-    "html.wf-active": {
+    "html.font600-loaded.font300-loaded.font400-loaded": {
       fontFamily: theme.base.fonts.styledFamily
     },
     "*, *:before, *:after": {

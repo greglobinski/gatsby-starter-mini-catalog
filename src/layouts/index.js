@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { navigateTo } from "gatsby-link";
 require("core-js/fn/array/find-index");
+require("typeface-open-sans");
+var FontFaceObserver = require("fontfaceobserver");
 
 import theme from "../styles/theme";
 import globals from "../styles/globals";
@@ -17,18 +19,28 @@ import NextButton from "../components/NextButton/";
 import SidebarButton from "../components/Sidebar/SidebarButton";
 
 class Layout extends React.Component {
+  constructor() {
+    super();
+
+    if (typeof window !== `undefined`) {
+      this.loadFont("font600", "Open Sans", 600);
+      this.loadFont("font300", "Open Sans", 300);
+      this.loadFont("font400", "Open Sans", 400);
+    }
+  }
+
   state = {
     nextButtonTopOffset: "",
     toForNextButton: ""
   };
+
   timeouts = {};
-  categories = [];
 
   componentDidMount() {
     const screenSequence = this.buildScreenSequence(this.props.data);
     this.props.setScreenSequence(screenSequence);
 
-    if (typeof window !== "undefined") {
+    if (typeof window !== `undefined`) {
       window.addEventListener("resize", this.resizeThrottler, false);
     }
 
@@ -49,6 +61,27 @@ class Layout extends React.Component {
       this.setToForNextButton();
     }
   }
+
+  loadFont = (name, family, weight) => {
+    console.log("loadFont");
+    if (window.document.documentElement.className.indexOf(`${name}-fonts-loaded`) > -1) {
+      return;
+    }
+
+    const font = new FontFaceObserver(family, {
+      weight: weight
+    });
+
+    font.load().then(
+      function() {
+        console.log(`${name} is available`);
+        window.document.documentElement.className += ` ${name}-loaded`;
+      },
+      function() {
+        console.log(`${name} is not available`);
+      }
+    );
+  };
 
   buildScreenSequence(data) {
     const pages = data.pages.edges.map(edge => ({

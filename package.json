@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "color": "^3.0.0",
+    "fontfaceobserver": "^2.0.13",
     "gatsby": "1.9.224",
     "gatsby-image": "^1.0.35",
     "gatsby-link": "^1.6.36",
@@ -84,6 +85,7 @@
     "react-redux": "^5.0.6",
     "react-swipeable": "^4.2.0",
     "redux": "^3.7.2",
-    "redux-devtools-extension": "^2.13.2"
+    "redux-devtools-extension": "^2.13.2",
+    "typeface-open-sans": "^0.0.54"
   }
 }
