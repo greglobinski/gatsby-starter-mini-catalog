@@ -32,6 +32,7 @@ const styles = theme => ({
     overflow: "hidden"
   },
   main: {
+    zIndex: 1,
     position: "relative",
     background: theme.base.colors.background,
     transform: "translate3D(0,0,0)",
@@ -126,7 +127,6 @@ class Container extends React.Component {
 
     return (
       <div className={classes.container}>
-        <aside className={classes.aside}>{this.lastScreen}</aside>
         <main className={`${classes.main} ${classes[this.screenTransition]}`}>
           <Swipeable
             onSwipingLeft={this.onSwipedLeft}
@@ -139,6 +139,7 @@ class Container extends React.Component {
           </Swipeable>
           <div className={classes.overlay} onClick={this.overlayOnClick} />
         </main>
+        <aside className={classes.aside}>{this.lastScreen}</aside>
       </div>
     );
   }
