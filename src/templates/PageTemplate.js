@@ -9,7 +9,7 @@ class PageTemplate extends React.Component {
     const { data, location } = this.props;
 
     return (
-      <Container locationPathname={location.pathname}>
+      <Container location={location}>
         <Page page={data.page} footnote={data.footnote} />
       </Container>
     );

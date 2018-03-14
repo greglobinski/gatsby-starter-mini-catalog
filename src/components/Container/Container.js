@@ -94,13 +94,15 @@ class Container extends React.Component {
         el => el.slug === this.props.lastScreenPath
       );
       const screenIndex = this.props.screenSequence.findIndex(
-        el => el.slug === this.props.locationPathname
+        el => el.slug === this.props.location.pathname
       );
       this.screenTransition = lastScreenIndex <= screenIndex ? "asNext" : "asPrev";
+    } else {
+      this.screenTransition = "";
     }
 
-    if (this.props.locationPathname !== this.props.lastScreenPath) {
-      this.props.setLastScreen({ obj: this.props.children, path: this.props.locationPathname });
+    if (this.props.location.pathname !== this.props.lastScreenPath) {
+      this.props.setLastScreen({ obj: this.props.children, path: this.props.location.pathname });
     }
   }
 
@@ -145,7 +147,7 @@ class Container extends React.Component {
 Container.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-  locationPathname: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
   screenSequence: PropTypes.array.isRequired,
   lastScreen: PropTypes.node,
   lastScreenPath: PropTypes.string.isRequired,

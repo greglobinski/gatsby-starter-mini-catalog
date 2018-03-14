@@ -10,7 +10,7 @@ class Index extends React.Component {
     const { location, screenSequence } = this.props;
 
     return (
-      <Container locationPathname={location.pathname}>
+      <Container location={location}>
         <Home screenSequence={screenSequence} />
       </Container>
     );

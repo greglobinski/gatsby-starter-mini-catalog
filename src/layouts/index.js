@@ -63,7 +63,6 @@ class Layout extends React.Component {
   }
 
   loadFont = (name, family, weight) => {
-    console.log("loadFont");
     if (window.document.documentElement.className.indexOf(`${name}-fonts-loaded`) > -1) {
       return;
     }

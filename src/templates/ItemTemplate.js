@@ -9,7 +9,7 @@ class ItemTemplate extends React.Component {
     const { data, location } = this.props;
 
     return (
-      <Container locationPathname={location.pathname}>
+      <Container location={location}>
         <Item item={data.item} footnote={data.footnote} />
       </Container>
     );
