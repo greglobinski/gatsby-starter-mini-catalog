@@ -39,7 +39,7 @@ const SidebarButton = props => {
   const { classes, sidebarVisible } = props;
 
   return (
-    <div className={classes.sidebarButton} id="nextButton">
+    <div className={classes.sidebarButton}>
       <Button
         variant="fab"
         aria-label="next"
