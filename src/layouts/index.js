@@ -223,7 +223,6 @@ export const guery = graphql`
           }
           frontmatter {
             title
-            packageName
           }
         }
       }

@@ -36,12 +36,5 @@ export const pageQuery = graphql`
     footnote: markdownRemark(id: { regex: "/footnote/" }) {
       html
     }
-    site {
-      siteMetadata {
-        facebook {
-          appId
-        }
-      }
-    }
   }
 `;
