@@ -29,7 +29,7 @@ More information on [GatsbyJS.org](https://www.gatsbyjs.org/tutorial/part-one)
 Install the starter using Gatsby Cli `gatsby new` command.
 
 ```text
-gatsby new [NEW_SITE_DIRECTORY_FOR_YOUR_BLOG] https://github.com/greglobinski/gatsby-starter-simple-landing.git
+gatsby new [NEW_SITE_DIRECTORY_FOR_YOUR_BLOG] https://github.com/greglobinski/gatsby-starter-mini-catalog.git
 ```
 
 Go into the newly created directory and run
