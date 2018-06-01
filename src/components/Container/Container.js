@@ -9,6 +9,12 @@ require("core-js/fn/array/find-index");
 
 import { setLastScreen, setSidebarVisible } from "../../state/store";
 
+const NEXT = 1;
+const PREV = -1;
+
+const NEXT_TRANSITION = "asNext";
+const PREV_TRANSITION = "asPrev";
+
 const styles = theme => ({
   container: {
     height: "100vh",
@@ -54,10 +60,10 @@ const styles = theme => ({
       display: "block"
     }
   },
-  asNext: {
+  [NEXT_TRANSITION]: {
     animationName: "mainEntryAsNext"
   },
-  asPrev: {
+  [PREV_TRANSITION]: {
     animationName: "mainEntryAsPrev"
   },
   "@keyframes mainEntryAsNext": {
@@ -91,13 +97,14 @@ class Container extends React.Component {
   componentDidMount() {
     if (this.props.lastScreen) {
       this.lastScreen = this.props.lastScreen;
+
       const lastScreenIndex = this.props.screenSequence.findIndex(
         el => el.slug === this.props.lastScreenPath
       );
-      const screenIndex = this.props.screenSequence.findIndex(
-        el => el.slug === this.props.location.pathname
-      );
-      this.screenTransition = lastScreenIndex <= screenIndex ? "asNext" : "asPrev";
+
+      const screenIndex = this.getScreenIndex();
+
+      this.screenTransition = lastScreenIndex <= screenIndex ? NEXT_TRANSITION : PREV_TRANSITION;
     }
 
     if (this.props.location.pathname !== this.props.lastScreenPath) {
@@ -105,12 +112,30 @@ class Container extends React.Component {
     }
   }
 
+  getScreenIndex() {
+    return this.props.screenSequence.findIndex(el => el.slug === this.props.location.pathname);
+  }
+
+  getToScreen(direction) {
+    const maxIndex = this.props.screenSequence.length - 1;
+    let newIndex = this.getScreenIndex() + direction;
+
+    if (newIndex > maxIndex) {
+      newIndex = 0;
+    } else if (newIndex < 0) {
+      newIndex = maxIndex;
+    }
+
+    return this.props.screenSequence[newIndex].slug;
+  }
+
   onSwipedLeft = e => {
-    const toScreen = this.getToScreen("next");
+    const toScreen = this.getToScreen(NEXT);
     navigateTo(toScreen);
   };
+
   onSwipedRight = e => {
-    const toScreen = this.getToScreen("prev");
+    const toScreen = this.getToScreen(PREV);
     navigateTo(toScreen);
   };
 
