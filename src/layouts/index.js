@@ -16,6 +16,7 @@ import { timeoutThrottlerHandler } from "../utils/helpers";
 
 import Sidebar from "../components/Sidebar";
 import NextButton from "../components/NextButton/";
+import PreviousButton from "../components/PreviousButton/";
 import SidebarButton from "../components/Sidebar/SidebarButton";
 
 class Layout extends React.Component {
@@ -31,7 +32,8 @@ class Layout extends React.Component {
 
   state = {
     nextButtonTopOffset: "",
-    toForNextButton: ""
+    toForNextButton: "",
+    toForPreviousButton: ""
   };
 
   timeouts = {};
@@ -50,6 +52,7 @@ class Layout extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.screenSequence !== prevProps.screenSequence) {
       this.setToForNextButton();
+      this.setToForPreviousButton();
     }
 
     if (this.props.location.pathname !== prevProps.location.pathname) {
@@ -59,6 +62,7 @@ class Layout extends React.Component {
         this.setState({ nextButtonTopOffset: "" });
       }
       this.setToForNextButton();
+      this.setToForPreviousButton();
     }
   }
 
@@ -134,6 +138,25 @@ class Layout extends React.Component {
     ___loader.enqueue(to);
   }
 
+  setToForPreviousButton() {
+    const currentScreen = this.props.location.pathname;
+    const sequence = this.props.screenSequence;
+
+    const currentScreenIndex = sequence.findIndex(el => el.slug === currentScreen);
+    const toIndex = currentScreenIndex - 1;
+
+    const to = toIndex < 0 ? "/" : sequence[toIndex].slug;
+
+    this.setState({ toForPreviousButton: to });
+
+    // because we dynamicaly changing a 'to' parameter of the PreviousButton's gatsby-link component
+    // we have to manualy do the job which in usual circumstances gatsby-link does for us automaticaly,
+    // prefetch assets for the next path
+
+    // eslint-disable-next-line no-undef
+    ___loader.enqueue(to);
+  }
+
   sidebarLinkOnClick = e => {
     e.preventDefault();
     const to = e.target.getAttribute("href");
@@ -148,6 +171,16 @@ class Layout extends React.Component {
     this.props.setSidebarVisible(this.props.sidebarVisible ? false : true);
   };
 
+  renderPreviousButton() {
+    // Just render Previous button if you're not in the Home Screen
+    return location.pathname !== "/" ? (
+      <PreviousButton
+        topOffset={this.state.nextButtonTopOffset}
+        to={this.state.toForPreviousButton}
+      />
+    ) : null;
+  }
+
   render() {
     const { location, screenSequence, sidebarVisible } = this.props;
 
@@ -160,6 +193,7 @@ class Layout extends React.Component {
         >
           {this.props.children()}
           <Sidebar screenSequence={screenSequence} onClick={this.sidebarLinkOnClick} />
+          {this.renderPreviousButton()}
           <NextButton topOffset={this.state.nextButtonTopOffset} to={this.state.toForNextButton} />
           <SidebarButton onClick={this.sidebarButtonOnClick} sidebarVisible={sidebarVisible} />
         </div>
