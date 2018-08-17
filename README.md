@@ -8,8 +8,6 @@ An experimental [GatsbyJS](https://www.gatsbyjs.org/) starter. <br /><br />
 
   <br />
 
-See the starter in action » [demo website](https://gatsby-starter-mini-catalog.greglobinski.com/) <br />For more information visit » [dev.greglobinski.com/gatsby-starter-mini-catalog](https://dev.greglobinski.com/gatsby-starter-mini-catalog/)
-
 ## Description
 
 An experimental GatsbyJS starter with full screen slide transitions between pages.
